@@ -13,6 +13,7 @@ python = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0"
+ruff = "^0.14.3"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -21,3 +22,11 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 project = "labyrinth_game.main:main"
 
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = ["venv", ".venv", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
