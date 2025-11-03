@@ -63,8 +63,8 @@ def process_command(game_state, command):
             #show_help()
         
         # Вызываем функцию решения загадок
-        #case 'solve':
-            #solve_puzzle(game_state)
+        case 'solve':
+            utils.solve_puzzle(game_state)
         
         case 'quit' | 'exit':
             print(f'\nИгра закончена! Спасибо!')
