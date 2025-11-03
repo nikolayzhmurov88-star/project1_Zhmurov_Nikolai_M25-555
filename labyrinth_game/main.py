@@ -5,7 +5,7 @@ from labyrinth_game import constants as const
 from labyrinth_game import utils
 from labyrinth_game import player_actions as pa
 
-# Задаем функцию
+# 1. Задаем основную функцию
 def main():
     #print('Первая попытка запустить проект!')
     print("\nДобро пожаловать в Лабиринт сокровищ!")
@@ -25,10 +25,54 @@ def main():
     while not game_state['game_over']:
         # Вызываем функцию обработки команд пользователя
         command = pa.get_input(f'\nВведите команду: ')
+        process_command(game_state, command)
+      
+    
+# 2. Задаем функцию обработки команд
+def process_command(game_state, command):
+
+    # Обрабатывем команду игрока с помощью match / case
+    match command:
+
+        # Вызываем функцию отображения инвентаря
+        case 'inventory':
+            pa.show_inventory(game_state)
+
+        # Вызываем функцию перемещения по комнатам
+        case ['go', direction]:
+            # Проверяем, что направление введено корректно
+            if direction in ['north', 'south', 'east', 'west']:
+                pa.move_player(game_state, direction)
+            else:
+                print(f'\nУточните направление')
+
+        # Вызываем функцию осмотра комнаты
+        case 'look':
+            utils.describe_current_room(game_state)
+
+        # Вызываем функцию взятия предмета
+        case ['take', item]:
+            pa.take_item(game_state, item)
+
+        # Вызываем функцию использования предмета
+        #case ['use', item]:
+            #use_item(game_state, item)
+            
+        # Вызвываем функцию попмощи (список команд)
+        #case 'help':
+            #show_help()
         
-        print(command)
-        if command == 'quit':
-            break
+        # Вызываем функцию решения загадок
+        #case 'solve':
+            #solve_puzzle(game_state)
+        
+        case 'quit' | 'exit':
+            print(f'\nИгра закончена! Спасибо!')
+            game_state['game_over'] = True
+
+        case _:
+            print(f'\nНеизвестная команда')
+
 
 
 # Вызываем ее только при запуске модуля как программы
