@@ -55,8 +55,8 @@ def process_command(game_state, command):
             pa.take_item(game_state, item)
 
         # Вызываем функцию использования предмета
-        #case ['use', item]:
-            #use_item(game_state, item)
+        case ['use', item]:
+            pa.use_item(game_state, item)
             
         # Вызвываем функцию попмощи (список команд)
         #case 'help':

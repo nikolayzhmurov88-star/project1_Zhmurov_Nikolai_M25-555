@@ -69,3 +69,34 @@ def take_item(game_state, item_name):
         print(f'\nТакого предмета нет в комнате')
 
 
+# 5. Функция использования предмета
+def use_item(game_state, item_name):
+    # Проверяем есть ли предмет в инвентаре игрока
+    if item_name in game_state['player_inventory']:
+        match item_name:
+            # Выводим сообщение при использовании фонаря
+            case 'torch':
+                print('\nСтало значительно светлее')
+
+            # Выводим сообщение при использовании меча
+            case 'sword':
+                print('\nС мечом чувствую себя увереннее')
+
+            # Выводим сообщение при открытии бронзовой шкатулки, добавляем в инвентари ключ при его отсутствии
+            case 'bronze_box':
+                if ('rusty_key') not in game_state['player_inventory']:
+                    game_state['player_inventory'].append('rusty_key')
+                    print('\nВ инвентарь добавлен rusty_key')
+                else:
+                    print('\nПусто!')
+                
+            # С остальными предментами неизвестноб что делать
+            case _:
+                print('\nНе знаю, что делать с этим предметом')
+
+    # Выводим сообщение если предмета нет в инвентаре
+    else:
+        print(f'\nУ вас нет такого предмета.')
+
+
+
