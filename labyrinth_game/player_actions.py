@@ -49,9 +49,23 @@ def move_player(game_state, direction):
         # Выводим описание новой комнаты
         describe_current_room(game_state)
 
-    
     else:
         # Если в данном направлении пойти нельзя, сообщаем об этом
         print(f'\nНельзя пойти в этом направлении')
         
+# 4. Функция взятия предмета
+def take_item(game_state, item_name):
+
+    # Объявляем переменную room с помощью цепочки обращений
+    room = ROOMS[game_state['current_room']]
+
+    # Проверяем условие есть ли предмет в комнате
+    if item_name in room['items']:
+        game_state['player_inventory'].append(item_name)
+        room['items'].remove(item_name)
+        print(f'\nВы подняли: {item_name}')
+
+    else:
+        print(f'\nТакого предмета нет в комнате')
+
 
