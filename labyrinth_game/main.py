@@ -23,11 +23,10 @@ def main():
 
     # Объявляем цикл с условием окончание игры равно False
     while not game_state['game_over']:
-        game_state['game_over'] = True
-        command = print(input(f'\nВведите вашу команду: '))
-        print('\nКонец')
-
-
+        # Вызываем функцию обработки команд пользователя
+        command = pa.get_input(f'\nВведите команду: ')
+       
+        print(command)
 
 # Вызываем ее только при запуске модуля как программы
 if __name__ == "__main__":
