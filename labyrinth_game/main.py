@@ -25,8 +25,11 @@ def main():
     while not game_state['game_over']:
         # Вызываем функцию обработки команд пользователя
         command = pa.get_input(f'\nВведите команду: ')
-       
+        
         print(command)
+        if command == 'quit':
+            break
+
 
 # Вызываем ее только при запуске модуля как программы
 if __name__ == "__main__":
