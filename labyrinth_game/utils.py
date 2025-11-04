@@ -140,6 +140,16 @@ def attempt_open_treasure(game_state):
                 print('\nНепонятный ответ! Вы отступаете от сундука!') 
                       
        
-        
+# Функция помощи
+def show_help():
+    print("\nДоступные команды:")
+    print("  go <direction>  - перейти в направлении (north/south/east/west)")
+    print("  look            - осмотреть текущую комнату")
+    print("  take <item>     - поднять предмет")
+    print("  use <item>      - использовать предмет из инвентаря")
+    print("  inventory       - показать инвентарь")
+    print("  solve           - попытаться решить загадку в комнате")
+    print("  quit            - выйти из игры")
+    print("  help            - показать это сообщение")       
 	
 

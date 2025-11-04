@@ -66,8 +66,8 @@ def process_command(game_state, command):
             pa.use_item(game_state, item)
             
         # Вызвываем функцию попмощи (список команд)
-        #case 'help':
-            #show_help()
+        case 'help':
+            utils.show_help()
         
         # Вызываем функцию решения загадок
         case 'solve':
