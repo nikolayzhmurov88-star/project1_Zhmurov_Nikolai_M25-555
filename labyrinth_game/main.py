@@ -2,8 +2,9 @@
 
 # Выполняем необходимые импорты
 from labyrinth_game import constants as const
-from labyrinth_game import utils
 from labyrinth_game import player_actions as pa
+from labyrinth_game import utils
+
 
 # 1. Задаем основную функцию
 def main():
@@ -24,7 +25,7 @@ def main():
     # Объявляем цикл с условием окончание игры равно False
     while not game_state['game_over']:
         # Вызываем функцию обработки команд пользователя
-        command = pa.get_input(f'\nВведите команду: ')
+        command = pa.get_input('\nВведите команду: ')
         process_command(game_state, command)
       
     
@@ -75,12 +76,12 @@ def process_command(game_state, command):
         
 		# Если возвращается команда quit или exit завершаем игру
         case 'quit' | 'exit':
-            print(f'\nИгра закончена! Спасибо!')
+            print('\nИгра закончена! Спасибо!')
             game_state['game_over'] = True
 
         # Если команда не распознана выводим сообщение
         case _:
-            print(f'\nНеизвестная команда')
+            print('\nНеизвестная команда')
 
 
 

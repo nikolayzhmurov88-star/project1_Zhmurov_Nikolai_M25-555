@@ -1,10 +1,10 @@
 # labyrinth_game/player_actions.py
 
 # Импортируем переменную ROOMS из constants
-from labyrinth_game.constants import ROOMS 
-
 # Импортируем модуль utils
-from labyrinth_game import utils 
+from labyrinth_game import utils
+from labyrinth_game.constants import ROOMS
+
 
 # 1. Функция отображения инвентаря
 def show_inventory(game_state):
@@ -13,7 +13,7 @@ def show_inventory(game_state):
          print(f"\nВ наличии следующий инвентарь: {', '.join(game_state['player_inventory'])}")
     # в случае отсутсвия инвентаря сообщаем о его отсутствии
     else:
-         print(f"\nВ наличии инвентаря нет")
+         print("\nВ наличии инвентаря нет")
 
  # 2. Функция обработки ввода пользователя      
 def get_input(prompt="> "):
@@ -45,11 +45,11 @@ def move_player(game_state, direction):
         # Если переход осуществляется в treasure_room
         if room['exits'][direction] == 'treasure_room':
             if  'rusty_key' not in game_state['player_inventory']:
-                print(f'\nДверь заперта. Нужен ключ, чтобы пройти дальше.')
+                print('\nДверь заперта. Нужен ключ, чтобы пройти дальше.')
                 return
             
             else:
-                print(f'\nВы используете найденный ключ, чтобы открыть путь в комнату сокровищ.')
+                print('\nВы используете найденный ключ, чтобы открыть путь в комнату сокровищ.')
                               
         # Меняем в game_state название комнаты, используем обращение к вложенному словарю
         game_state['current_room']= room['exits'][direction]
@@ -66,7 +66,7 @@ def move_player(game_state, direction):
         
     else:
         # Если в данном направлении пойти нельзя, сообщаем об этом 
-        print(f'\nНельзя пойти в этом направлении')
+        print('\nНельзя пойти в этом направлении')
         
 # 4. Функция взятия предмета
 def take_item(game_state, item_name):
@@ -81,7 +81,7 @@ def take_item(game_state, item_name):
         print(f'\nВы подняли: {item_name}')
 
     else:
-        print(f'\nТакого предмета нет в комнате')
+        print('\nТакого предмета нет в комнате')
 
 
 # 5. Функция использования предмета
@@ -111,7 +111,7 @@ def use_item(game_state, item_name):
 
     # Выводим сообщение если предмета нет в инвентаре
     else:
-        print(f'\nУ вас нет такого предмета.')
+        print('\nУ вас нет такого предмета.')
 
 
 
