@@ -81,3 +81,23 @@ COMMANDS = {
     "quit": "выйти из игры",
     "help": "показать это сообщение"       
     }
+
+
+PUZZLE_ALTERNATIVES = {
+    'hall': ['10', 'десять', 'ten', 'десять'],
+    'trap_room': ['шаг шаг шаг', 'step step step', 'steps steps steps', 'шагшагшаг'],
+    'library': ['резонанс', 'resonance', 'эхо', 'echo', 'звук'],
+    'garden': ['имя', 'name', 'имямое', 'my name'],
+    'observatory': ['8', 'восемь', 'eight', 'восьмь', '8 планет'],
+    'secret_passage': ['дыхание', 'breath', 'breathing', 'воздух', 'дых']
+}
+
+
+PUZZLE_REWARDS = {
+    'hall': 'gold_coin',
+    'trap_room': 'secret_map',
+    'library': 'ancient_book',
+    'garden': 'crystal_flower',
+    'observatory': 'telescope_lens',
+    'secret_passage': 'hidden_key'
+}

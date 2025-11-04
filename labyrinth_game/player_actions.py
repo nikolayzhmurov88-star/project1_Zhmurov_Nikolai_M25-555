@@ -20,14 +20,15 @@ def get_input(prompt="> "):
     try:
         # Убираем пробелы и меняем регистр на нижний
         command = input(prompt).strip().lower()
-        # Если в команде больше одного слова, формируем список
-        if ' ' in command:
-            
-            return command.split()
-        # Если в команде одно слово возвращаем строку
-        else:
 
+        if ' ' in command:
+            # Если в команде несколько строк, превращаем в список
+            return command.split()
+        else:
+            # Если одно слово возвращаем команду
             return command
+        
+    
     except (KeyboardInterrupt, EOFError):
         print("\nВыход из игры.")
         return "quit"

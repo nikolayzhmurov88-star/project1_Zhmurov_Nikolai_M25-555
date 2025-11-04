@@ -9,8 +9,14 @@ from labyrinth_game.constants import EVENT_PROBABILITY
 # Импортируем константу EVENT_COUNT
 from labyrinth_game.constants import EVENT_COUNT
 
-# Импортируем константу EVENT_COUNT
+# Импортируем константу DEMAGE_LIMIT
 from labyrinth_game.constants import DEMAGE_LIMIT
+
+# Импортируем константу PUZZLE_ALTERNATIVES
+from labyrinth_game.constants import PUZZLE_ALTERNATIVES
+
+# Импортируем константу PUZZLE_REWARDS
+from labyrinth_game.constants import PUZZLE_REWARDS
 
 # Импортируем функцию get_input
 from labyrinth_game.player_actions import get_input
@@ -56,14 +62,28 @@ def solve_puzzle(game_state):
         ans = ROOMS[current_room]['puzzle'][1]
 
         print(f'\nВ комнате есть закадка: {puz}')
-        print(ans)
+        
         # Объявляем переменную user_ans и запрашиваем ответ пользователя
         user_ans = get_input('\nВаш ответ: ')
+        
+        # Если функция get_input вернула словарь, то делаем опять строку
+        if isinstance(user_ans, list):
+            user_ans = ' '.join(user_ans)
+            
 
         # Проверяем правильность ответа
-        if user_ans == ans:
+        if user_ans == ans or user_ans in PUZZLE_ALTERNATIVES[current_room]:
             print('\nЭто правильный ответ!')
+
+            # Удаляем загадку из игры
             ROOMS[current_room]['puzzle'] = None
+
+            # Выводим сообщение о награде
+            print(f'\nВы получаете награду {PUZZLE_REWARDS[current_room]}')
+
+            # Добавляем награду в инвентарь
+            game_state['player_inventory'].append(PUZZLE_REWARDS[current_room])
+
         # В случае нажатия ctrl + c фиксируем отказ
         elif user_ans == 'quit': 
              print('\nВы отказались отгадывать загадку')
@@ -91,7 +111,7 @@ def attempt_open_treasure(game_state):
         print('\nВы применяете ключ, и замок щёлкает. Сундук открыт!')
         
         # Удаляем сундук из предметов комнаты
-        ROOMS['treasure_room']['items'][0] = None
+        ROOMS['treasure_room']['items'].remove('treasure_chest')
         
         # Сообщаем о победе
         print('\nВ сундуке сокровище! Вы победили!\n')
@@ -134,7 +154,7 @@ def attempt_open_treasure(game_state):
                         print('\nЭто правильный ответ! В сундуке сокровище! Вы победили!\n')
                               
                         # Удаляем сундук из предметов комнаты
-                        ROOMS['treasure_room']['items'][0] = None
+                        ROOMS['treasure_room']['items'].remove('treasure_chest')
                               
                         #Завершаем игру
                         game_state['game_over'] = True
