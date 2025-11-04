@@ -6,6 +6,9 @@ from labyrinth_game.constants import ROOMS
 # Импортируем функцию get_input
 from labyrinth_game.player_actions import get_input
 
+# Импортируем math
+import math
+
 # 1. Функция описания комнаты с аргументом game_state
 def describe_current_room(game_state):
     
@@ -62,7 +65,7 @@ def solve_puzzle(game_state):
     else:
         print('\nЗагадок здесь нет.')
         
-# Функция определяющая логику победы в игре
+# 3. Функция определяющая логику победы в игре
 def attempt_open_treasure(game_state):
     
     # Проверяем есть ли в инвентаре игрока treasure_key
@@ -138,7 +141,22 @@ def attempt_open_treasure(game_state):
             # Если игрок вводит ни да, ни нет
             case _:
                 print('\nНепонятный ответ! Вы отступаете от сундука!') 
-                      
+
+# 4. Функция для случайных событий
+   
+def pseudo_random(seed, modulo) -> int:
+    # Берем синус от seed, умноженного на константу с дробной частью
+    x = math.sin(seed * 12.9898)
+    # "Размазываем" значения, умножая на другую константу
+    x *= 43758.5453
+    # Вычитаем целую часть, чтобы получить дробную часть (число в [0, 1))
+    fractional_part = x - math.floor(x)
+    # Масштабируем к нужному диапазону [0, modulo)
+    result = int(fractional_part * modulo)
+    return result
+
+
+
        
 # Функция помощи
 def show_help():
