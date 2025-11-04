@@ -3,6 +3,7 @@
 # Импортируем переменную ROOMS из constants
 from labyrinth_game.constants import ROOMS 
 
+# Импортируем модуль utils
 from labyrinth_game import utils 
 
 # 1. Функция отображения инвентаря

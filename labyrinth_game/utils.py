@@ -68,7 +68,14 @@ def solve_puzzle(game_state):
         elif user_ans == 'quit': 
              print('\nВы отказались отгадывать загадку')
         else:
-            print('\nНеверно. Попробуйте снова.')
+            # Если не находимся в trap_room то посто фиксируем неверный ответ
+            if current_room != 'trap_room':
+                print('\nНеверно. Попробуйте снова.')
+
+            # Если в trap_room, то срабатывает ловушка
+            else:
+                trigger_trap(game_state)
+
 
     # Если в комнате нет загадок выводим сообщение
     else:
@@ -207,7 +214,7 @@ def random_event(game_state):
 
     # Определяем произойдет ли событие вообще
     event = pseudo_random(game_state['steps_taken'], EVENT_PROBABILITY)
-    if event == 0:
+    if event == 5:
 
         # Определяем какое имненно событие случится
         event_num = pseudo_random(game_state['steps_taken'], EVENT_COUNT)
