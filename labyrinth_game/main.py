@@ -39,12 +39,9 @@ def process_command(game_state, command):
             pa.show_inventory(game_state)
 
         # Вызываем функцию перемещения по комнатам
-        case ['go', direction]:
-            # Проверяем, что направление введено корректно
-            if direction in ['north', 'south', 'east', 'west']:
-                pa.move_player(game_state, direction)
-            else:
-                print(f'\nУточните направление')
+        case 'north' |'south' | 'east' | 'west':
+           pa.move_player(game_state, command)
+           
 
         # Вызываем функцию осмотра комнаты
         case 'look':
