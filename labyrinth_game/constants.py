@@ -52,8 +52,8 @@ ROOMS = {
     },
     'crypt': {
         'description': 'Сырой склеп с каменными саркофагами. В воздухе витает запах старой пыли и тайн.',
-        'exits': {'up': 'observatory', 'east': 'secret_passage'},
-        'items': ['bone_key', 'ancient_scroll'],
+        'exits': {'west': 'observatory', 'east': 'secret_passage'},
+        'items': ['treasure_key', 'ancient_scroll'],
         'puzzle': ('На самом большом саркофаге вырезано: "Что принадлежит тебе, но другие используют это чаще?" (ответ одно слово)', 'имя')
     },
     'secret_passage': {

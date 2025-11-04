@@ -52,7 +52,14 @@ def process_command(game_state, command):
 
         # Вызываем функцию взятия предмета
         case ['take', item]:
-            pa.take_item(game_state, item)
+            
+            # Добавляем отдельное условие для попытки поднятия сундука
+            if item == 'treasure_chest':
+                print('\nВы не можете поднять сундук, он слишком тяжелый.')
+                
+            # Если поднимаем не сундук, то выполняюм стандартную функцию взятия предмета
+            else:
+                pa.take_item(game_state, item)
 
         # Вызываем функцию использования предмета
         case ['use', item]:
@@ -64,12 +71,17 @@ def process_command(game_state, command):
         
         # Вызываем функцию решения загадок
         case 'solve':
-            utils.solve_puzzle(game_state)
+            if game_state['current_room'] == 'treasure_room':
+                utils.attempt_open_treasure(game_state)
+            else:
+                utils.solve_puzzle(game_state)
         
+		# Если возвращается команда quit или exit завершаем игру
         case 'quit' | 'exit':
             print(f'\nИгра закончена! Спасибо!')
             game_state['game_over'] = True
 
+        # Если команда не распознана выводим сообщение
         case _:
             print(f'\nНеизвестная команда')
 
