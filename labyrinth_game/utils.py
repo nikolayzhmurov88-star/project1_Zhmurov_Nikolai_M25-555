@@ -235,15 +235,11 @@ def random_event(game_state):
   
    
 # Функция помощи
-def show_help():
-    print("\nДоступные команды:")
-    print("  go <direction>  - перейти в направлении (north/south/east/west)")
-    print("  look            - осмотреть текущую комнату")
-    print("  take <item>     - поднять предмет")
-    print("  use <item>      - использовать предмет из инвентаря")
-    print("  inventory       - показать инвентарь")
-    print("  solve           - попытаться решить загадку в комнате")
-    print("  quit            - выйти из игры")
-    print("  help            - показать это сообщение")       
-	
+def show_help(COMMANDS):
+    print('\n== КОМАНДЫ ИСПОЛЬЗУЕМЫЕ В ИГРЕ ==\n')
+    print("=" * 66)
+    for key, value in COMMANDS.items():
+        print(f'{key:<16} - {value}')
+    print("=" * 66)
+      
 

@@ -67,7 +67,7 @@ def process_command(game_state, command):
             
         # Вызвываем функцию попмощи (список команд)
         case 'help':
-            utils.show_help()
+            utils.show_help(const.COMMANDS)
         
         # Вызываем функцию решения загадок
         case 'solve':
