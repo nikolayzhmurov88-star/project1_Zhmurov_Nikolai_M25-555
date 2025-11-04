@@ -12,7 +12,7 @@ def main():
 
     # Объявляем переменную game_state, описывающую состояние игры
     game_state = {
-        'player_inventory': [], # Инвентарь игрока
+        'player_inventory': ['ancient_book', 'car' ,'Gun', 'switch'], # Инвентарь игрока
         'current_room': 'entrance', # Текущая комната
         'game_over': False, # Значения окончания игры
         'steps_taken': 0 # Количество шагов

@@ -3,6 +3,15 @@
 # Импортируем переменную ROOMS из constants
 from labyrinth_game.constants import ROOMS 
 
+# Импортируем константу EVENT_PROBABILITY
+from labyrinth_game.constants import EVENT_PROBABILITY
+
+# Импортируем константу EVENT_COUNT
+from labyrinth_game.constants import EVENT_COUNT
+
+# Импортируем константу EVENT_COUNT
+from labyrinth_game.constants import DEMAGE_LIMIT
+
 # Импортируем функцию get_input
 from labyrinth_game.player_actions import get_input
 
@@ -132,7 +141,6 @@ def attempt_open_treasure(game_state):
                     else:
                         print('\nКод неверный. Попробуйте снова.')
                 
-
 		    # Если игрок изначально отказался вводить код        
             case 'нет'|'no'|'quit':
                 print('\nВы отступаете от сундука.')
@@ -142,22 +150,92 @@ def attempt_open_treasure(game_state):
             case _:
                 print('\nНепонятный ответ! Вы отступаете от сундука!') 
 
-# 4. Функция для случайных событий
-   
-def pseudo_random(seed, modulo) -> int:
+
+# 4. Функция для случайных собитий (генерация случайных чисел)
+def pseudo_random(seed, modulo):
     # Берем синус от seed, умноженного на константу с дробной частью
     x = math.sin(seed * 12.9898)
+
     # "Размазываем" значения, умножая на другую константу
     x *= 43758.5453
+
     # Вычитаем целую часть, чтобы получить дробную часть (число в [0, 1))
     fractional_part = x - math.floor(x)
+
     # Масштабируем к нужному диапазону [0, modulo)
     result = int(fractional_part * modulo)
     return result
 
 
+# 5. Функция срабатывания ловушки
+def trigger_trap(game_state):
 
-       
+    # Сообщении о том, что сработала ловушка
+    print('\nЛовушка активирована! Пол стал дрожать...')
+
+    # Проверяем есть ли что-то в инвентаре, если есть забираем случайный предмет
+    if game_state['player_inventory'] != []:
+
+        # Считаем количество предметов в инвентаре
+        inventory_count = len(game_state['player_inventory'])
+
+        # Генерируем индекс предмета, который будем удалять
+        del_item = pseudo_random(game_state['steps_taken'], inventory_count)
+        print(del_item)
+        
+        # Удаляем предмет из инвентаря 
+        print(f'Из инвентаря пропал {game_state['player_inventory'][del_item]}')
+        del game_state['player_inventory'][del_item]
+        
+
+    # Если инвентарь пуст
+    else:
+        # Генерируем число определяющее урон
+        demage = pseudo_random(game_state['steps_taken'], EVENT_PROBABILITY)
+        
+        # Если число ниже порога, игрок погибает и игра заканчивается
+        if demage < DEMAGE_LIMIT:
+            print('\nВы получили критический урон и проиграли!\n\nИгра окончена!\n')
+            game_state['game_over'] = True
+
+        # Иначе выводим сообщение, что грок уцелел
+        else:
+            print('\nВы получили урон но уцелели!')
+
+
+# 6. Функция обработки случайных событий
+def random_event(game_state):
+
+    # Определяем произойдет ли событие вообще
+    event = pseudo_random(game_state['steps_taken'], EVENT_PROBABILITY)
+    if event in range (0 , 10):
+
+        # Определяем какое имненно событие случится
+        event_num = pseudo_random(game_state['steps_taken'], EVENT_COUNT)
+        print(event_num )
+    
+        # Обрабатываем события для разных случайных чисел
+        match event_num:
+
+            # Нашли монетку
+            case 0:
+                print('\nВы увидели монетку на полу, ее можно подобрать!')
+                room = ROOMS[game_state['current_room']]
+                room['items'].append('coin')
+            
+            # Услишал шорох
+            case 1:
+                print('\nВ темноте послышался шорох, жутко ...')
+                if 'sword' in game_state['player_inventory']:
+                    print('\nВы отпугнули странное существо мечом')
+
+            # Срабатывание ловушки
+            case 2:
+                if game_state['current_room'] == 'trap_room' and 'torch' not in game_state['player_inventory']:
+                    trigger_trap(game_state)
+
+  
+   
 # Функция помощи
 def show_help():
     print("\nДоступные команды:")
