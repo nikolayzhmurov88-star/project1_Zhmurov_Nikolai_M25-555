@@ -56,7 +56,7 @@ def solve_puzzle(game_state):
         ans = ROOMS[current_room]['puzzle'][1]
 
         print(f'\nВ комнате есть закадка: {puz}')
-
+        print(ans)
         # Объявляем переменную user_ans и запрашиваем ответ пользователя
         user_ans = get_input('\nВаш ответ: ')
 
@@ -181,7 +181,6 @@ def trigger_trap(game_state):
 
         # Генерируем индекс предмета, который будем удалять
         del_item = pseudo_random(game_state['steps_taken'], inventory_count)
-        print(del_item)
         
         # Удаляем предмет из инвентаря 
         print(f'Из инвентаря пропал {game_state['player_inventory'][del_item]}')
@@ -208,11 +207,10 @@ def random_event(game_state):
 
     # Определяем произойдет ли событие вообще
     event = pseudo_random(game_state['steps_taken'], EVENT_PROBABILITY)
-    if event in range (0 , 10):
+    if event == 0:
 
         # Определяем какое имненно событие случится
         event_num = pseudo_random(game_state['steps_taken'], EVENT_COUNT)
-        print(event_num )
     
         # Обрабатываем события для разных случайных чисел
         match event_num:

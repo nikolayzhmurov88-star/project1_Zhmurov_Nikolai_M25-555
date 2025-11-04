@@ -39,7 +39,16 @@ def move_player(game_state, direction):
     
     # Проверяем условие если выход из комнаты в заданном напралении
     if direction in room['exits']:
-       
+
+        # Если переход осуществляется в treasure_room
+        if room['exits'][direction] == 'treasure_room':
+            if  'rusty_key' not in game_state['player_inventory']:
+                print(f'\nДверь заперта. Нужен ключ, чтобы пройти дальше.')
+                return
+            
+            else:
+                print(f'\nВы используете найденный ключ, чтобы открыть путь в комнату сокровищ.')
+                              
         # Меняем в game_state название комнаты, используем обращение к вложенному словарю
         game_state['current_room']= room['exits'][direction]
 
@@ -51,9 +60,10 @@ def move_player(game_state, direction):
         # Выводим описание новой комнаты
         describe_current_room(game_state)
         utils.random_event(game_state)
-
+        
+        
     else:
-        # Если в данном направлении пойти нельзя, сообщаем об этом
+        # Если в данном направлении пойти нельзя, сообщаем об этом 
         print(f'\nНельзя пойти в этом направлении')
         
 # 4. Функция взятия предмета
